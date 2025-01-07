@@ -11,7 +11,7 @@ test.describe('New Todo', () => {
         await page.goto(devConfig.baseUrl);
         const pageObject = new LandingPage(page);
         await pageObject.acceptCookies();
-        await page.waitForTimeout(6000);
+        //await page.waitForTimeout(6000);
     });
 
     // check menu and sub menu 
@@ -20,7 +20,7 @@ test.describe('New Todo', () => {
         await page.goto(devConfig.baseUrl);
         const pageObject = new LandingPage(page);
         await pageObject.checkHeadingMenu();
-        await page.waitForTimeout(6000);
+        await page.waitForTimeout(2000);
     });
     // go job listing page
     test('Go to careers page on click', async ({ page }) => {

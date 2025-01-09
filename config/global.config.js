@@ -1,19 +1,19 @@
 const os = require('os');
 const path = require('path');
-
+ 
 const automationType = process.env.AUTOMATION_TYPE || 'web';
 let testDir = './tests';
-
+ 
 if (automationType === 'api') {
     testDir = './tests-api';
 }
-
+ 
 const globalConfig = {
     testDir: process.env.TEST_DIR || testDir,
     retries: parseInt(process.env.RETRIES || '0', 10) || 0,
     workers: parseInt(process.env.WORKERS || '3', 10) || 3,
     fullyParallel: process.env.FULLY_PARALLEL === 'true',
-    timeout: parseInt(process.env.TIMEOUT || '60000', 10),
+    timeout: parseInt(process.env.TIMEOUT || '120000', 10),
     expect: {
         timeout: parseInt(process.env.EXPECT_TIMEOUT || '5000', 10),
     },
@@ -38,17 +38,17 @@ const globalConfig = {
     ],
     use: {
         browserName: process.env.BROWSER_NAME || 'chromium',
-        headless: process.env.HEADLESS === 'true',
+        headless: true,
         ignoreHTTPSErrors: process.env.IGNORE_HTTPS_ERRORS === 'true',
-        screenshot: process.env.SCREENSHOT || 'only-on-failure',
-        video: process.env.VIDEO || 'retain-on-failure',
-        trace: process.env.TRACE || 'on-first-retry',
+        screenshot: process.env.SCREENSHOT || 'on',
+        video: process.env.VIDEO || 'on',
+        trace: process.env.TRACE || 'on',
         launchOptions: {
             args: ["--start-maximized"],
         },
     },
-
+ 
     // globalTeardown: require.resolve(path.join(__dirname, '..', 'global-teardown.js')),
 };
-
+ 
 export { globalConfig };

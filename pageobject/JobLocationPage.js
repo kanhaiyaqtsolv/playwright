@@ -39,8 +39,9 @@ class JobLocationPage {
     async getSearchResult(){
         
         await this.page.locator('.serachButton');
-        await this.page.locator('.loader').waitFor({ state: 'hidden' });
         await this.page.waitForLoadState('domcontentloaded');
+        await this.page.locator('.loader').waitFor({ state: 'hidden' });
+       
 
         
     }

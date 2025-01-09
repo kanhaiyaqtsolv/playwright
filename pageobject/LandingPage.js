@@ -17,9 +17,9 @@ class LandingPage {
     }
     // this methos used for accpet cooike and plociy
     async acceptCookies() {
-        await this.page.waitForLoadState('networkidle');
         // set xpath locator for cooike 
         await this.page.locator("//button[normalize-space()='Accept']").click();
+        await this.page.waitForLoadState('networkidle');
         
     }
     // this method used for menu hoveanc check menu and sub menu
@@ -31,7 +31,7 @@ class LandingPage {
         } else {
           console.error(`Mega menu did not appear for ${menu.selector}`);
         }
-        await this.page.waitForTimeout(1000);
+        // await this.page.waitForTimeout(3000);
     }
     // menu check display or not 
     async isMegaMenuVisible(menuSelector) {

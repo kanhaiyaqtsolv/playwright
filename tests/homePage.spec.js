@@ -6,26 +6,27 @@ const HeadingPage = require('../pageobject/HeadingPage');
 const JobLocationPage = require('../pageobject/JobLocationPage'); 
 
 test.describe('New Todo', () => {
+
+    test.beforeEach(async ({ page }) => {
+        await page.goto(devConfig.baseUrl);
+        console.log('Before tests');
+    });
     // accept cooike and policy
     test('Go to footer and accept cookie and policy', async ({ page }) => {
-        await page.goto(devConfig.baseUrl);
         const pageObject = new LandingPage(page);
         await pageObject.acceptCookies();
-        //await page.waitForTimeout(6000);
-    });
+        
+    },60000);
 
     // check menu and sub menu 
     test('Check all heading menu and submneu ', async ({ page }) => {
-    
-        await page.goto(devConfig.baseUrl);
         const pageObject = new LandingPage(page);
         await pageObject.checkHeadingMenu();
-        await page.waitForTimeout(2000);
-    });
+       
+    }, 60000);
     // go job listing page
     test('Go to careers page on click', async ({ page }) => {
         
-        await page.goto(devConfig.baseUrl);
         const pageObject = new JobLocationPage(page);
         // go to job page
         await pageObject.goToCareerPage(page);
@@ -48,11 +49,6 @@ test.describe('New Todo', () => {
     //  expect(jobResultData.jobExperience).toBe(singleJobDetail.jobExperience);
         
     
-    });
+    },60000);
 
 });
-
-
-
-
-

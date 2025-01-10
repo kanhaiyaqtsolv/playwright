@@ -46,7 +46,7 @@ test.describe('New Todo', () => {
         // match job title jon location  and  detail page
         expect(jobResultData.jobLocation).toBe(singleJobDetail.jobLocation);
        // match job loca year of experiences and  detail page experiences
-        expect(toLowerCase(jobResultData.jobExperience)).toBe(toLowerCase(singleJobDetail.jobExperience));
+        expect(jobResultData.jobExperience.toLowerCase()).toBe(singleJobDetail.jobExperience.toLowerCase());
         
     
     });

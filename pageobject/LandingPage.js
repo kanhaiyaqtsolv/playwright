@@ -4,16 +4,6 @@ class LandingPage {
     constructor(page) {
         // set page object
         this.page = page;
-        // set menu item 
-        this.menuSelectors = [
-            { selector: 'li.nav-item:nth-child(1) .nav-link', megaMenu: '.megaMenu' },
-            { selector: 'li.nav-item:nth-child(2) .nav-link', megaMenu: '.megaMenu' }, 
-            { selector: 'li.nav-item:nth-child(3) .nav-link', megaMenu: '.megaMenu' }, 
-            { selector: 'li.nav-item:nth-child(4) .nav-link', megaMenu: '.megaMenu' }, 
-            { selector: 'li.nav-item:nth-child(5) .nav-link', megaMenu: '.megaMenu' }, 
-            { selector: 'li.nav-item:nth-child(6) .nav-link', megaMenu: '.megaMenu' }, 
-            { selector: 'li.nav-item:nth-child(7) .nav-link', megaMenu: '.megaMenu' }, 
-          ];
     }
     // this methos used for accpet cooike and plociy
     async acceptCookies() {
@@ -41,10 +31,23 @@ class LandingPage {
     // call this method for menu heading
     async checkHeadingMenu()
     {
-        for (const menu of this.menuSelectors) {
-            await this.hoverAndCheckMegaMenu(menu);
+        // get all menu seletor 
+        const navLinks = await this.page.$$('.nav-link');
+        let countOfMenuItem = 1;
+        for (const link of navLinks) {
+            // Get the text content of the nav-link
+            const linkText = await link.textContent();
+            
+            await this.page.locator(`li.nav-item:nth-child(${countOfMenuItem}) .nav-link`).hover();
+            await this.page.waitForLoadState('networkidle');
+            // Check if this nav-link has a parent `.nav-item` that contains a `.megaMenu`
+            const hasMegaMenu = await link.evaluate((el) => {
+                const parentNavItem = el.closest('.nav-item');
+                return parentNavItem && parentNavItem.querySelector('.megaMenu') !== null;
+            });
+            countOfMenuItem ++;
+            console.log(`Link: "${linkText.trim()}", Has MegaMenu: ${hasMegaMenu}`);
         }
-
     }
 
    
